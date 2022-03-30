@@ -13,6 +13,8 @@ After mapping between email template and customer.cvs data, we can use ouput.jso
 We will upload the file output.json then my service to storage that file then using event bus to push data received from client (Event Bus included consumer and publisher, using ram to storage message from sender). 
 After that, at the side consumer, it will process continue to send mail to user who mapped with email template.
 
+![](img/flowchart.png)
+
 ### HOW TO RUN MY SERVICE
 run test case:
 
