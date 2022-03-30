@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SendMail.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">send-mail</a> &gt; <a href="index.source.html" class="el_package">com.ntnn.repository</a> &gt; <span class="el_source">SendMail.java</span></div><h1>SendMail.java</h1><pre class="source lang-java linenums">package com.ntnn.repository;
+
+import com.sendgrid.*;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
+
+import java.io.IOException;
+
+<span class="fc" id="L9">public class SendMail {</span>
+<span class="fc" id="L10">    private static Logger log = LoggerFactory.getLogger(SendMail.class);</span>
+<span class="fc" id="L11">    private static final SendMail INSTANCE =  new SendMail();</span>
+
+    public static SendMail getInstance(){
+<span class="fc" id="L14">        return INSTANCE;</span>
+    }
+
+    public void sendMail(String from, String subject, String to, String body) {
+<span class="fc" id="L18">        Email emailFrom = new Email(&quot;nam0108ht@gmail.com&quot;);</span>
+<span class="fc" id="L19">        Email emailTo = new Email(to);</span>
+<span class="fc" id="L20">        Content content = new Content(&quot;text/plain&quot;, body);</span>
+<span class="fc" id="L21">        Mail mail = new Mail(emailFrom, subject, emailTo, content);</span>
+
+<span class="fc" id="L23">        SendGrid sg = new SendGrid(System.getenv(&quot;SENDGRID_API_KEY&quot;));</span>
+<span class="fc" id="L24">        Request request = new Request();</span>
+        try {
+<span class="fc" id="L26">            request.setMethod(Method.POST);</span>
+<span class="fc" id="L27">            request.setEndpoint(&quot;mail/send&quot;);</span>
+<span class="fc" id="L28">            request.setBody(mail.build());</span>
+<span class="fc" id="L29">            sg.api(request);</span>
+<span class="nc" id="L30">        } catch (IOException ex) {</span>
+<span class="nc" id="L31">            log.error(ex);</span>
+<span class="fc" id="L32">        }</span>
+<span class="fc" id="L33">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

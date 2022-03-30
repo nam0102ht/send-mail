@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadCsvFile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">send-mail</a> &gt; <a href="index.source.html" class="el_package">com.ntnn.repository</a> &gt; <span class="el_source">ReadCsvFile.java</span></div><h1>ReadCsvFile.java</h1><pre class="source lang-java linenums">package com.ntnn.repository;
+
+import com.ntnn.model.User;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.CsvToBeanBuilder;
+import org.json.simple.JSONArray;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+<span class="fc" id="L14">public class ReadCsvFile {</span>
+<span class="fc" id="L15">    private static final ReadCsvFile INSTANCE = new ReadCsvFile();</span>
+
+    public static ReadCsvFile getInstance() {
+<span class="fc" id="L18">        return INSTANCE;</span>
+    }
+
+    public List&lt;User&gt; readFromFile(String pathFile) throws FileNotFoundException {
+<span class="fc" id="L22">        List&lt;User&gt; lst = new CsvToBeanBuilder(new FileReader(pathFile))</span>
+<span class="fc" id="L23">                .withType(User.class)</span>
+<span class="fc" id="L24">                .build()</span>
+<span class="fc" id="L25">                .parse();</span>
+<span class="fc" id="L26">        return lst;</span>
+    }
+
+    public void saveErrors(List&lt;User&gt; lstErrors, String path) throws IOException {
+<span class="fc" id="L30">        try (CSVWriter writer = new CSVWriter(new FileWriter(path))) {</span>
+<span class="fc" id="L31">            writer.writeAll(createLst(lstErrors));</span>
+        }
+<span class="fc" id="L33">    }</span>
+
+    public void saveFileJson(JSONArray jsonArray, String path) throws IOException {
+<span class="fc" id="L36">        File myObj = new File(path + &quot;output.json&quot;);</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if (myObj.createNewFile()) {</span>
+<span class="fc" id="L38">            System.out.println(&quot;File created: &quot; + myObj.getName());</span>
+<span class="fc" id="L39">            try (FileWriter fileWriter = new FileWriter(path + &quot;output.json&quot;)) {</span>
+<span class="fc" id="L40">                fileWriter.write(jsonArray.toJSONString());</span>
+            }
+        } else {
+<span class="nc" id="L43">            try (FileWriter fileWriter = new FileWriter(path + &quot;output.json&quot;)) {</span>
+<span class="nc" id="L44">                fileWriter.write(jsonArray.toJSONString());</span>
+            }
+        }
+<span class="fc" id="L47">    }</span>
+
+    public List&lt;String[]&gt; createLst(List&lt;User&gt; lstErrors) {
+<span class="fc" id="L50">        List&lt;String[]&gt; lst = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L51">        String[] headers = {&quot;TITLE&quot;, &quot;FIRST_NAME&quot;, &quot;LAST_NAME&quot;, &quot;EMAIL&quot;};</span>
+<span class="fc" id="L52">        lst.add(headers);</span>
+<span class="fc" id="L53">        lst.addAll(lstErrors.stream().map(v -&gt; {</span>
+<span class="fc" id="L54">            String[] strArr = {v.getTitle(), v.getFirstName(), v.getLastName(), v.getEmail()};</span>
+<span class="fc" id="L55">            return strArr;</span>
+<span class="fc" id="L56">        }).collect(Collectors.toList()));</span>
+<span class="fc" id="L57">        return lst;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MailVerticle.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">send-mail</a> &gt; <a href="index.source.html" class="el_package">com.ntnn.verticle</a> &gt; <span class="el_source">MailVerticle.java</span></div><h1>MailVerticle.java</h1><pre class="source lang-java linenums">package com.ntnn.verticle;
+
+import com.ntnn.common.Utils;
+import com.ntnn.repository.SendMail;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
+<span class="fc" id="L15">public class MailVerticle extends AbstractVerticle {</span>
+
+<span class="fc" id="L17">    private static final Logger log = LoggerFactory.getLogger(MailVerticle.class);</span>
+
+    @Override
+    public void start() throws Exception {
+<span class="fc" id="L21">        EventBus eventBus = vertx.eventBus();</span>
+<span class="fc" id="L22">        eventBus.consumer(&quot;process-mail&quot;, handler -&gt; {</span>
+<span class="fc" id="L23">            String fileUploaded = (String) handler.body();</span>
+<span class="fc" id="L24">            log.info(&quot;Processing with file: &quot; + fileUploaded);</span>
+            try {
+<span class="fc" id="L26">                JSONArray jsonArray = Utils.parseJsonArray(fileUploaded);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">                for(Object jsonObject : jsonArray) {</span>
+<span class="fc" id="L28">                    JSONObject obj = (JSONObject) jsonObject;</span>
+<span class="fc" id="L29">                    SendMail.getInstance().sendMail(</span>
+                            &quot;nam0108ht@gmail.com&quot;,
+<span class="fc" id="L31">                            obj.get(&quot;subject&quot;).toString(),</span>
+<span class="fc" id="L32">                            obj.get(&quot;to&quot;).toString(),</span>
+<span class="fc" id="L33">                            obj.get(&quot;body&quot;).toString()</span>
+                    );
+<span class="fc" id="L35">                    log.info(&quot;Sent to: &quot; + obj.toJSONString());</span>
+<span class="fc" id="L36">                }</span>
+<span class="nc" id="L37">            } catch (IOException | ParseException e) {</span>
+<span class="nc" id="L38">                log.error(e);</span>
+<span class="fc" id="L39">            }</span>
+<span class="fc" id="L40">        });</span>
+<span class="fc" id="L41">        super.start();</span>
+<span class="fc" id="L42">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

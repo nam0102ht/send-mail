@@ -1,0 +1,117 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'com.ntnn'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin:'application'
+ext {
+    javaMainClass = "com.ntnn.Main"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
+dependencies {
+    implementation 'io.vertx:vertx-core:4.2.6'
+    implementation 'io.vertx:vertx-web:4.2.6'
+    implementation 'io.vertx:vertx-config:4.2.6'
+    implementation 'io.vertx:vertx-config-yaml:4.2.6'
+    implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'com.opencsv:opencsv:5.6'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'ch.qos.logback:logback-core:1.2.11'
+    testImplementation 'ch.qos.logback:logback-classic:1.2.11'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
+    implementation 'com.sendgrid:sendgrid-java:4.0.1'
+    implementation 'io.vertx:vertx-web-client:4.2.6'
+    testImplementation 'io.vertx:vertx-junit5:4.2.6'
+
+
+    testImplementation 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation 'org.mockito:mockito-core:4.3.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.4.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'io.vertx:vertx-unit:4.2.6'
+}
+
+sourceSets{
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+    test {
+        java {
+
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+if (project.hasProperty("args")) {
+    ext.cmdargs = project.getProperty("args")
+} else {
+    ext.cmdargs = ""
+}
+
+// ./gradlew cmdLineJavaExec -Pargs="/Users/namnguyen/Desktop/test/emailTemplate.json /Users/namnguyen/Desktop/test/customer.csv /Users/namnguyen/Desktop/test/ /Users/namnguyen/Desktop/test/errors.csv"
+task cmdLineJavaExec(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = javaMainClass
+    args cmdargs.split(" ")
+}
+
+rootProject.tasks.named("processResources") {
+    duplicatesStrategy = 'exclude'
+}
+
+rootProject.tasks.named("processTestResources") {
+    duplicatesStrategy = 'exclude'
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/ntnn/model",
+                    "com/ntnn/config"
+            ])
+        }))
+    }
+}

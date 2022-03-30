@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - MainTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>MainTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/unit.com.ntnn.html">unit.com.ntnn</a> &gt; MainTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">9</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.297s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">processCommandLine_FileTemplate_NoHaveBody()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_FileTemplate_NotMatch()</td>
+<td class="success">0.320s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors()</td>
+<td class="success">0.081s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors_DataErrors_NotFound()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors_Data_NotFound()</td>
+<td class="success">0.807s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors_EmailTemplate_NotFound()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors_PathErrors_NotFound()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Errors_PathOutput_NotFound()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processCommandLine_Test_Success()</td>
+<td class="success">0.055s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>16:55:54.733 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please add data in command
+16:55:54.749 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please add pathTemplate in command
+16:55:54.755 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.common.Utils - Processing file: src/test/resources/data_test/emailTemplateFail.json
+16:55:55.017 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Starting process
+16:55:55.040 [ForkJoinPool.commonPool-worker-5] INFO com.ntnn.Main - Please wait, just a second it'll be done
+16:55:55.041 [ForkJoinPool.commonPool-worker-5] INFO com.ntnn.Main - Check again Title of CSV data input file
+File created: output.json
+Success deleted file: output.json
+16:55:55.089 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please add outputFilePath in command
+16:55:55.096 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.common.Utils - Processing file: src/test/resources/data_test/emailTemplate.json
+16:55:55.141 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Starting process
+16:55:55.141 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please wait, just a second it'll be done
+16:55:55.144 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Completing mapped data from template with data input
+File created: output.json
+Success deleted file: output.json
+16:55:55.182 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please add outputFilePath in command
+16:55:55.190 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.common.Utils - Processing file: src/test/resources/data_test/emailTemplate.json
+16:55:55.234 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Starting process
+16:55:55.235 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please wait, just a second it'll be done
+16:55:55.236 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Completing mapped data from template with data input
+File created: output.json
+Success deleted file: output.json
+16:55:55.243 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Please add errorPath in command
+16:55:55.248 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.common.Utils - Processing file: src/test/resources/data_test/emailTemplateNobody.json
+16:55:55.252 [ForkJoinPool.commonPool-worker-3] INFO com.ntnn.Main - Body of template is empty
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.1</a> at Mar 30, 2022, 4:55:55 PM</p>
+</div>
+</div>
+</body>
+</html>
