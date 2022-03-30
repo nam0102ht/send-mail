@@ -30,7 +30,8 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        if (args.length == 0) {
+        log.info(Arrays.toString(args));
+        if (args.length == 1 || args.length == 0) {
             Main.getInstance().processVertx();
         } else {
             Main.getInstance().processCommandLine(args);

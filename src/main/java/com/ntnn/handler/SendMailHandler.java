@@ -25,11 +25,8 @@ public class SendMailHandler implements Handler<RoutingContext> {
         JsonObject obj;
         EventBus eventBus = vertx.eventBus();
         for (FileUpload response : context.fileUploads()) {
-            obj = new JsonObject();
-            obj.put("status", "200");
-            obj.put("message", "saved success");
             fileName = response.uploadedFileName();
-            jsonArray.add(obj);
+            jsonArray.add(response.fileName());
             eventBus.send("process-mail", fileName);
         }
         obj = new JsonObject();

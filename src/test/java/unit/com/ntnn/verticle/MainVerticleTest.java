@@ -50,7 +50,7 @@ public class MainVerticleTest {
             if (ar.succeeded()) {
                 HttpResponse<Buffer> response = ar.result();
                 System.out.println("Got HTTP response with status " + response.statusCode());
-                Assertions.assertEquals("{\"status\":\"Success\",\"message\":\"[{\\\"status\\\":\\\"200\\\",\\\"message\\\":\\\"saved success\\\"}]\"}", response.bodyAsString());
+                Assertions.assertEquals("{\"status\":\"Success\",\"message\":\"[\\\"output_complete.txt\\\"]\"}", response.bodyAsString());
                 context.completeNow();
             } else {
                 ar.cause().printStackTrace();
